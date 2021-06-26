@@ -23,7 +23,6 @@ class BaseModel:
         """ Update 'updated_at' time. """
         self.updated_at = datetime.now()
 
-
     def to_dict(self):
         """ Return json serializable dictionary representation of model. """
         d = {k: v for k, v in self.__dict__.items()}
