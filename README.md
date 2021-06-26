@@ -16,4 +16,5 @@ _An Air BnB clone_
 
 ## Authors
 Justin Masayda [@keysmusician](https://github.com/keysmusician)
+
 Carson Stearn [@krytech](https://github.com/krytech)
