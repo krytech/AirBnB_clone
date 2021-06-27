@@ -1,17 +1,37 @@
 #!/usr/bin/python3
-""" Define BaseModel. """
+""" Base model. """
 from datetime import datetime
+from models import storage
+from string import digits
 import uuid
 
 
-class BaseModel:
-    """ Define all common attributes/methods for derived classes. """
+def fromisoformat(t):
+    " Convert ISO format datetime string into datetime object. "
+    args = [t[0:4], t[5:7], t[8:10], t[11:13], t[14:16], t[17:19], t[20:]]
+    args = [int(t) for t in args]
+    return datetime(*args)
 
-    def __init__(self):
+
+class BaseModel:
+    """ All common attributes/methods for derived classes. """
+
+    def __init__(self, *args, **kwargs):
         """ Initialize model. """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if len(kwargs):
+            for k, v in kwargs.items():
+                # Do not set __class__; done automatically
+                if k == "__class__":
+                    continue
+                setattr(self, k, v)
+            # Convert ISO format time strings to datetime objects
+            self.created_at = fromisoformat(self.created_at)
+            self.updated_at = fromisoformat(self.updated_at)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """ Return human readable string representation of model. """
@@ -20,15 +40,16 @@ class BaseModel:
         )
 
     def save(self):
-        """ Update 'updated_at' time. """
+        """ Update "updated_at" time. """
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """ Return json serializable dictionary representation of model. """
         d = {k: v for k, v in self.__dict__.items()}
         d.update(
             {
-                "__class__": __class__.__name__,
+                "__class__": self.__class__.__name__,
                 "created_at": self.created_at.isoformat(),
                 "updated_at": self.updated_at.isoformat()
             }
