@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """ Base model. """
 from datetime import datetime
-from models import storage
 from string import digits
 import uuid
+from . import storage
 
 
 def fromisoformat(t):
@@ -20,7 +20,7 @@ class BaseModel:
         """ Initialize model. """
         if len(kwargs):
             for k, v in kwargs.items():
-                # Do not set __class__; done automatically
+                # Do not set "__class__"; done automatically
                 if k == "__class__":
                     continue
                 setattr(self, k, v)
