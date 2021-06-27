@@ -3,15 +3,27 @@
 Command interpreter for the Holberton AirBnB project
 """
 import cmd
+from models import storage
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
-#needs storage
 class HBNBCommand(cmd.Cmd):
     """ Command interpreter class """
     prompt = "(hbnb) "
     classes = {
         "BaseModel": BaseModel,
+        "User": User,
+        "State": State,
+        "City": City,
+        "Place": Place,
+        "Amenity": Amenity,
+        "Review": Review
     }
     ERR = [
         "** class name missing **",
@@ -62,11 +74,11 @@ class HBNBCommand(cmd.Cmd):
             print(HBNBCommand.ERR[2])
             return
         argid = args[0] + "." + args[1]
-        if argid not in models.storage.all():
+        if argid not in storage.all():
             print(HBNBCommand.ERR[3])
             return
         else:
-            print(models.storage.all()[argid])
+            print(storage.all()[argid])
 
     def do_destroy(self, arg):
         """Deletes an instance based on the class name and id """
@@ -81,12 +93,12 @@ class HBNBCommand(cmd.Cmd):
             print(HBNBCommand.ERR[2])
             return
         argid = args[0] + "." + args[1]
-        if argid not in models.storage.all():
+        if argid not in storage.all():
             print(HBNBCommand.ERR[3])
             return
         else:
-            models.storage.all().pop(argid)
-            models.storage.save()
+            storage.all().pop(argid)
+            storage.save()
 
     def do_all(self, arg):
         """Prints all the string representation of all
@@ -101,7 +113,8 @@ class HBNBCommand(cmd.Cmd):
         else:
             if args[0] not in self.classes:
                 print(HBNBCommand.ERR[1])
-            for key in storage.all:
+                return
+            for key in storage.all():
                 name = key.split('.')
                 if name[0] == args[0]:
                     all_list.append(storage.all()[key])
@@ -120,7 +133,7 @@ class HBNBCommand(cmd.Cmd):
             print(HBNBCommand.ERR[2])
             return
         argid = args[0] + "." + args[1]
-        if argid not in models.storage.all():
+        if argid not in storage.all():
             print(HBNBCommand.ERR[3])
             return
         if len(args) < 3:
@@ -130,7 +143,12 @@ class HBNBCommand(cmd.Cmd):
             print(HBNBCommand.ERR[5])
             return
         else:
-            # needs update code
+            obj = storage.all()[argid]
+            if args[2] in obj.to_dict():
+                setattr(obj, args[2], type(getattr(obj, args[2]))(args[3]))
+            else:
+                setattr(obj, args[2], args[3])
+            obj.save()
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
