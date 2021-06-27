@@ -108,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             for key in storage.all():
                 all_list.append(storage.all()[key])
-            print(all_list)
+            print(list(map(str, all_list)))
             return
         else:
             if args[0] not in self.classes:
@@ -118,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
                 name = key.split('.')
                 if name[0] == args[0]:
                     all_list.append(storage.all()[key])
-            print(all_list)
+            print(list(map(str, all_list)))
 
     def do_update(self, arg):
         """Updates an instance based on the class nam and id """
