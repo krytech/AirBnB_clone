@@ -51,7 +51,7 @@ If it runs sucessfully, it will display the prompt and await input:
 
 `(hbnb) `
 
-Simply type any valid command(s) listed above. `quit` to exit the interactive session.
+Simply type any valid command(s) listed above. Type `quit` to exit the interactive session.
 
 The HBnB CLI may also be used non-interacively by piping input to it from a shell:
 
