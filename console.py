@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
             print(list(map(str, all_list)))
 
     def do_update(self, arg):
-        """Updates an instance based on the class nam and id """
+        """Updates an instance based on the class name and id """
         args = arg.split()
         if len(args) < 1:
             print(HBNBCommand.ERR[0])
