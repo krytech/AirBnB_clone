@@ -14,7 +14,6 @@ class TestBaseModel(unittest.TestCase):
         """Set up test basemodel"""
         self.basemodel = BaseModel()
         self.basemodel.name = "Buffy"
-        self.basemodel.id = 10
 
     @classmethod
     def del_basemodel(self):
@@ -37,6 +36,9 @@ class TestBaseModel(unittest.TestCase):
     def test_instance(self):
         """Test to check if the basemodel is instantiated"""
         self.assertIsInstance(self.basemodel, BaseModel)
+        self.assertTrue(hasattr(self.basemodel, "id"))
+        self.assertTrue(hasattr(self.basemodel, "created_at"))
+        self.assertTrue(hasattr(self.basemodel, "updated_at"))
 
     def test_save_basemodel(self):
         """Test if the save works"""
@@ -47,7 +49,16 @@ class TestBaseModel(unittest.TestCase):
 
     def test_dict_basemodel(self):
         """Test if dictionary works"""
-        self.assertEqual('to_dict' in dir(self.basemodel), True)
+        self.assertTrue('to_dict' in dir(self.basemodel))
+
+        # Save dictionary for testing
+        d = self.basemodel.to_dict()
+
+        self.assertIsInstance(d, dict)
+        self.assertTrue("__class__" in d)
+        self.assertTrue("id" in d)
+        self.assertTrue("created_at" in d)
+        self.assertTrue("updated_at" in d)
 
     def test_method_basemodel(self):
         """Test if Basemodel have methods"""
