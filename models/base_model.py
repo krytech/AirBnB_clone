@@ -6,13 +6,6 @@ import uuid
 from . import storage
 
 
-def from_iso_format(t):
-    """ Convert ISO format datetime string into datetime object. """
-    args = [t[0:4], t[5:7], t[8:10], t[11:13], t[14:16], t[17:19], t[20:]]
-    args = [int(t) for t in args]
-    return datetime(*args)
-
-
 class BaseModel:
     """ All common attributes/methods for derived classes. """
 
@@ -25,8 +18,8 @@ class BaseModel:
                     continue
                 setattr(self, k, v)
             # Convert ISO format time strings to datetime objects
-            self.created_at = from_iso_format(self.created_at)
-            self.updated_at = from_iso_format(self.updated_at)
+            self.created_at = self.from_iso_format(self.created_at)
+            self.updated_at = self.from_iso_format(self.updated_at)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.now()
@@ -55,3 +48,10 @@ class BaseModel:
             }
         )
         return d
+
+    @staticmethod
+    def from_iso_format(t):
+        """ Convert ISO format datetime string into datetime object. """
+        args = [t[0:4], t[5:7], t[8:10], t[11:13], t[14:16], t[17:19], t[20:]]
+        args = [int(t) for t in args]
+        return datetime(*args)
