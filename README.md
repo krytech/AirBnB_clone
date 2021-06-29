@@ -63,7 +63,7 @@ The HBnB CLI may also be used non-interacively by piping input to it from a shel
 
 Documented commands (type help <topic>):
 ========================================
-EOF  help  quit
+EOF  all  create  destroy  help  quit  show  update
 ```
 
 ## Authors
