@@ -5,7 +5,7 @@
 </p>
 
 # HBnB
-_Holberton Air BnB clone_
+_Holberton School Air BnB clone_
 
 ## Table of Contents
 * [About](#about)
