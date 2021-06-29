@@ -25,7 +25,6 @@ HBnB is a clone of Air BnB. The project is divided into 7 parts:
 ## The Console
 
 The Console is the first part of the HBnB clone. In it, we wrote classes for representing users and listings, a file storage engine for saving and recalling data between interactive sessions, as well as a command interpreter for easily managing our data.
-The HBnB source defines custom classes for representing data relevent to this project (users, amenities, cities, etc.).
 
 ### HBnB CLI — The command interpreter
 
