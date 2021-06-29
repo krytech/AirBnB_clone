@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-Command interpreter for the Holberton AirBnB project
+Command interpreter for the Holberton AirBnB project.
+
 """
 import cmd
 from models import storage
@@ -56,7 +57,8 @@ class HBNBCommand(cmd.Cmd):
             print(HBNBCommand.ERR[1])
             return
         else:
-            new_model = BaseModel()
+            model = self.classes[args[0]]
+            new_model = model()
             new_model.save()
             print(new_model.id)
 
