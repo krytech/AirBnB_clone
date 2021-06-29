@@ -2,6 +2,7 @@
 """Unittest for place"""
 import unittest
 import pep8
+import os
 from models.base_model import BaseModel
 from models.place import Place
 
@@ -29,6 +30,13 @@ class TestPlace(unittest.TestCase):
     def del_place(self):
         """Deletes place after test"""
         del self.place
+
+    def teardown(self):
+        """teardown"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_pep8_place(self):
         """Pep8 test for place"""

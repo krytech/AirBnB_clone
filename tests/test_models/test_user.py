@@ -2,6 +2,7 @@
 """Unittest for user"""
 import unittest
 import pep8
+import os
 from models.base_model import BaseModel
 from models.user import User
 
@@ -22,6 +23,13 @@ class Testuser(unittest.TestCase):
     def del_user(self):
         """Deletes user after test"""
         del self.user
+
+    def teardown(self):
+        """teardown"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_pep8_user(self):
         """Pep8 test for user"""

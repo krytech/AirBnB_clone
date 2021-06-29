@@ -2,6 +2,7 @@
 """Unittest for state"""
 import unittest
 import pep8
+import os
 from models.base_model import BaseModel
 from models.state import State
 
@@ -19,6 +20,13 @@ class TestState(unittest.TestCase):
     def del_state(self):
         """Deletes state after test"""
         del self.state
+
+    def teardown(self):
+        """teardown"""
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
 
     def test_pep8_state(self):
         """Pep8 test for state"""
