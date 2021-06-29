@@ -50,10 +50,7 @@ class TestBaseModel(unittest.TestCase):
     def test_dict_basemodel(self):
         """Test if dictionary works"""
         self.assertTrue('to_dict' in dir(self.basemodel))
-
-        # Save dictionary for testing
         d = self.basemodel.to_dict()
-
         self.assertIsInstance(d, dict)
         self.assertTrue("__class__" in d)
         self.assertTrue("id" in d)
