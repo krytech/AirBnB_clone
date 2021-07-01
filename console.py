@@ -15,7 +15,7 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
-    """ Command interpreter class """
+    """Command interpreter."""
     prompt = "(hbnb) "
     classes = {
         "BaseModel": BaseModel,
@@ -36,19 +36,22 @@ class HBNBCommand(cmd.Cmd):
     ]
 
     def do_quit(self, arg):
-        """Quit command to exit the program """
+        """Exit the command interpreter."""
         return True
 
     def do_EOF(self, arg):
-        """EOF command to exit the program """
+        """EOF command to exit the program."""
         return True
 
     def emptyline(self):
-        """Called when an empty line is entered in the prompt """
+        """Ignore when an empty line is inputted."""
         pass
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it and prints the id """
+        """
+        Create a new instance of a specified class, save it and print the id.
+
+        """
         args = arg.split()
         if len(args) < 1:
             print(HBNBCommand.ERR[0])
@@ -63,8 +66,10 @@ class HBNBCommand(cmd.Cmd):
             print(new_model.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on
-        the class name and id """
+        """
+        Print the string representation of an instance by class name and id.
+
+        """
         args = arg.split()
         if len(args) < 1:
             print(HBNBCommand.ERR[0])
@@ -83,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
             print(storage.all()[argid])
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id """
+        """Delete an instance based on the class name and id."""
         args = arg.split()
         if len(args) < 1:
             print(HBNBCommand.ERR[0])
@@ -103,8 +108,11 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, arg):
-        """Prints all the string representation of all
-        instances based or not on the class name """
+        """
+        Print the string representation of all instances optionally based on
+        the class name.
+
+        """
         args = arg.split()
         all_list = []
         if not arg:
@@ -123,7 +131,7 @@ class HBNBCommand(cmd.Cmd):
             print(list(map(str, all_list)))
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and id """
+        """Update an instance based on the class name and id."""
         args = arg.split()
         if len(args) < 1:
             print(HBNBCommand.ERR[0])

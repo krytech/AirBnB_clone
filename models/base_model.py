@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Base model. """
+"""BaseModel class. Parent for all model classes."""
 from datetime import datetime
 from string import digits
 import uuid
@@ -7,10 +7,10 @@ from . import storage
 
 
 class BaseModel:
-    """ All common attributes/methods for derived classes. """
+    """All common attributes for derived classes."""
 
     def __init__(self, *args, **kwargs):
-        """ Initialize model. """
+        """Initialize model."""
         if len(kwargs):
             for k, v in kwargs.items():
                 # Do not set "__class__"; done automatically
@@ -27,18 +27,18 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self):
-        """ Return human readable string representation of model. """
+        """Return human readable string representation of model."""
         return "[{}] ({}) {}".format(
             self.__class__.__name__, self.id, self.__dict__
         )
 
     def save(self):
-        """ Update "updated_at" time. """
+        """Update "updated_at" time."""
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
-        """ Return json serializable dictionary representation of model. """
+        """Return json serializable dictionary representation of model."""
         d = {k: v for k, v in self.__dict__.items()}
         d.update(
             {
@@ -51,7 +51,7 @@ class BaseModel:
 
     @staticmethod
     def from_iso_format(t):
-        """ Convert ISO format datetime string into datetime object. """
+        """Convert ISO format datetime string into datetime object."""
         args = [t[0:4], t[5:7], t[8:10], t[11:13], t[14:16], t[17:19], t[20:]]
         args = [int(t) for t in args]
         return datetime(*args)

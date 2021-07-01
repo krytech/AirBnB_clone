@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-"""City class that inherits from BaseModel"""
+"""City class that inherits from BaseModel."""
 from models.base_model import BaseModel
 
 
 class City(BaseModel):
-    """A City class that inherits from BaseModel"""
+    """Describe a city."""
     state_id = ""
     name = ""
