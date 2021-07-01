@@ -35,21 +35,46 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(obj in file_storage.all().values())
 
     def test_save(self):
-        pass
-    """
-        try:
-            os.remove("file.json")
-        except Exception:
-            pass
-        try:
-            with open() as file:
+        file_storage = FileStorage()
+        test_path = "unittest_FileStorage_test_save.json"
+        file_storage._FileStorage__file_path = test_path
 
-        except FileNotFoundError:
-            pass
-    """
+        # Cancel test if test file already exists
+        if os.path.exists(test_path):
+            raise FileExistsError("Cannot create test file.")
+
+        # Create and add bunch of objects
+        objs = [BaseModel() for n in range(10)]
+        for obj in objs:
+            file_storage.new(obj)
+
+        # Check that save() created a file
+        file_storage.save()
+        self.assertTrue(os.path.exists(test_path))
+
+        # Remove test file
+        os.remove(test_path)
 
     def test_reload(self):
-        pass
+        file_storage = FileStorage()
+        test_path = "unittest_FileStorage_test_save.json"
+        file_storage._FileStorage__file_path = test_path
+
+        # Cancel test if test file already exists
+        if os.path.exists(test_path):
+            raise FileExistsError("Cannot create test file.")
+
+        # Save a bunch of objects
+        objs = [BaseModel() for n in range(10)]
+        for obj in objs:
+            file_storage.new(obj)
+        file_storage.save()
+        file_storage.reload()
+        for obj in file_storage.all().values():
+            self.assertIsInstance(obj, BaseModel)
+
+        # Remove test file
+        os.remove(test_path)
 
     def test_pep8(self):
         """Test PEP8."""
