@@ -32,13 +32,13 @@ The HBnB CLI (command line interpreter) provides a convenient command line inter
 It offers an imporved workflow over alternatives such as embedding data in the source code, manually managing a data file, or using the Python interpreter to manage the data.
 
 ### Commands
-* `all`
-* `create`
-* `destroy`
-* `help`
-* `quit` - also quit with `^-D` or `EOF`
-* `show`
-* `update`
+* `all [CLASS]` - Show all objects.
+* `create CLASS` - Create a new object.
+* `destroy CLASS ID` - Destroy a specified instance.
+* `help [COMMAND]` - Get information about a command.
+* `quit` - Close an interactive session. Also quit with `^-D` or `EOF`.
+* `show CLASS ID` - Display a single instance.
+* `update CLASS ID ATTRIBUTE VALUE` - Edit attributes of an instance.
 
 ### Usage
 
@@ -64,6 +64,13 @@ The HBnB CLI may also be used non-interacively by piping input to it from a shel
 Documented commands (type help <topic>):
 ========================================
 EOF  all  create  destroy  help  quit  show  update
+
+(hbnb) create Place
+aba364fd-8b9e-4c4b-b865-8db6a6e9bc03
+
+(hbnb) all
+["[Place] (aba364fd-8b9e-4c4b-b865-8db6a6e9bc03) {'created_at': datetime.datetime(2021, 7, 1, 13, 29, 27, 264673), 'id': 'aba364fd-8b9e-4c4b-b865-8db6a6e9bc03', 'updated_at': datetime.datetime(2021, 7, 1, 13, 29, 27, 264832)}"]
+(hbnb) 
 ```
 
 ## Authors
