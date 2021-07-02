@@ -4,6 +4,7 @@ import os
 import pep8
 import unittest
 from models.base_model import BaseModel
+from models import storage
 
 
 class TestBaseModel(unittest.TestCase):
@@ -42,9 +43,12 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save_basemodel(self):
         """Test save()."""
-        updated_at = self.basemodel.updated_at
-        self.basemodel.save()
-        self.assertNotEqual(self.basemodel.updated_at, updated_at)
+        size1 = len(storage.all())
+        bm = BaseModel()
+        updated_at = bm.updated_at
+        bm.save()
+        self.assertNotEqual(bm.updated_at, updated_at)
+        self.assertTrue(size1 < len(storage.all()))
 
     def test_dict_basemodel(self):
         """Test to_dict()."""
