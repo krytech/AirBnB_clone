@@ -42,6 +42,7 @@ class TestBaseModel(unittest.TestCase):
 
     def test_save_basemodel(self):
         """Test save()."""
+        self.assertTrue('save' in dir(self.basemodel))
         self.basemodel.save()
         self.assertNotEqual(
             self.basemodel.created_at, self.basemodel.updated_at
